@@ -32,6 +32,9 @@ CHROMA_SETTINGS = Settings(
 CONTEXT_WINDOW_SIZE = 8096
 MAX_NEW_TOKENS = CONTEXT_WINDOW_SIZE  # int(CONTEXT_WINDOW_SIZE/4)
 
+# Truncation
+TRUNCATION = True
+
 #### If you get a "not enough space in the buffer" error, you should reduce the values below, start with half of the original values and keep halving the value until the error stops appearing
 
 N_GPU_LAYERS = 100  # Llama-2-70B has 83 layers
@@ -97,8 +100,8 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 #### (FOR GGUF MODELS)
 ####
 
-# MODEL_ID = "TheBloke/Llama-2-13b-Chat-GGUF"
-# MODEL_BASENAME = "llama-2-13b-chat.Q4_K_M.gguf"
+MODEL_ID = "TheBloke/Llama-2-13b-Chat-GGUF"
+MODEL_BASENAME = "llama-2-13b-chat.Q4_K_M.gguf"
 
 # MODEL_ID = "TheBloke/Llama-2-7b-Chat-GGUF"
 # MODEL_BASENAME = "llama-2-7b-chat.Q4_K_M.gguf"
@@ -107,8 +110,9 @@ EMBEDDING_MODEL_NAME = "hkunlp/instructor-large"  # Uses 1.5 GB of VRAM (High Ac
 # MODEL_BASENAME = "Meta-Llama-3-8B-Instruct.Q4_K_M.gguf"
 
 # LLAMA 3 # use for Apple Silicon
-MODEL_ID = "meta-llama/Meta-Llama-3-8B-Instruct"
-MODEL_BASENAME = None
+# MODEL_ID = "meta-llama/Meta-Llama-3-8B-Instruct"
+# MODEL_ID = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+# MODEL_BASENAME = None
 
 # LLAMA 3 # use for NVIDIA GPUs
 # MODEL_ID = "unsloth/llama-3-8b-bnb-4bit"

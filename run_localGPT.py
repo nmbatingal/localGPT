@@ -3,6 +3,7 @@ import logging
 import click
 import torch
 import utils
+import datetime
 from langchain.chains import RetrievalQA
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 from langchain.llms import HuggingFacePipeline
@@ -36,6 +37,7 @@ from constants import (
     MAX_NEW_TOKENS,
     MODELS_PATH,
     CHROMA_SETTINGS,
+    TRUNCATION,
 )
 
 
@@ -85,6 +87,7 @@ def load_model(device_type, model_id, model_basename=None, LOGGING=logging):
         model=model,
         tokenizer=tokenizer,
         max_length=MAX_NEW_TOKENS,
+        truncation=TRUNCATION,
         temperature=0.2,
         # top_p=0.95,
         repetition_penalty=1.15,
@@ -252,6 +255,11 @@ def main(device_type, show_sources, use_history, model_type, save_qa):
     qa = retrieval_qa_pipline(device_type, use_history, promptTemplate_type=model_type)
     # Interactive questions and answers
     while True:
+        # Get question current time
+        query_time = datetime.datetime.now().time()
+        # Format the question current time
+        formatted_query_time = query_time.strftime("%H:%M")
+
         query = input("\nEnter a query: ")
         if query == "exit":
             break
@@ -261,9 +269,13 @@ def main(device_type, show_sources, use_history, model_type, save_qa):
 
         # Print the result
         print("\n\n> Question:")
-        print(query)
+        print("(" + formatted_query_time + ") " + query)
+        # Get answer current time
+        answer_time = datetime.datetime.now().time()
+        # Format the answer current time
+        formatted_answer_time = answer_time.strftime("%H:%M")
         print("\n> Answer:")
-        print(answer)
+        print("(" + formatted_query_time + ") " + answer)
 
         if show_sources:  # this is a flag that you can set to disable showing answers.
             # # Print the relevant sources used for the answer
