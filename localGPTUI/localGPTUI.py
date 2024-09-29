@@ -18,10 +18,12 @@ API_HOST = "http://localhost:5110/api"
 # PAGES #
 @app.route("/", methods=["GET", "POST"])
 def home_page():
+    response_dict = {'Answer' : 'This is a placeholder answer.'}
     if request.method == "POST":
         if "user_prompt" in request.form:
             user_prompt = request.form["user_prompt"]
-            print(f"User Prompt: {user_prompt}")
+            # print(f"User Prompt: {user_prompt}")
+            response_dict['Answer'] =f'{user_prompt}'
 
             main_prompt_url = f"{API_HOST}/prompt_route"
             response = requests.post(main_prompt_url, data={"user_prompt": user_prompt})

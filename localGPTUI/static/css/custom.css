@@ -1,26 +1,33 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #f8f9fa;
+    --text-color: #343a40;
+    --accent-color: #28a745;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
   }
   
   .sidebar {
-    background-color: #343a40;
-    color: white;
+    background-color: var(--background-color);
     height: 100vh;
     padding-top: 20px;
   }
   
-  .sidebar-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
   .sidebar .nav-link {
-    color: white;
+    color: var(--text-color);
   }
   
   .sidebar .nav-link.active {
-    background-color: #495057;
+    background-color: var(--primary-color);
+    color: white;
   }
   
   .main-content {
@@ -40,5 +47,14 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
