@@ -117,6 +117,9 @@
         userMessage.className = "user-message";
         userMessage.innerText = userPrompt;
         chatList.appendChild(userMessage);
+        
+        // Clear the input field
+        document.getElementById("searchInput").value = "";
 
         const responseMessage = document.createElement("li");
         responseMessage.className = "response-message";
@@ -137,7 +140,6 @@
           console.error('Error:', error);
         }
 
-        document.getElementById("searchInput").value = "";
       }
 
       document.getElementById("searchInput").addEventListener("keydown", function (event) {

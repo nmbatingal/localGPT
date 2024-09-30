@@ -55,7 +55,7 @@ def home_page():
             print(response.status_code)  # print HTTP response status code for debugging
 
     # Convert Mardown to HTML
-    response_dict['Answer'] = markdown.markdown(response_dict['Answer'])
+    response_dict['Answer'] = markdown.markdown(response_dict['Answer'], extensions=['extra'])
 
     # Display the form for GET request
     return render_template(
@@ -70,8 +70,12 @@ def generate_response():
     user_prompt = request.form['user_prompt']
     main_prompt_url = f"{API_HOST}/prompt_route"
     response = requests.post(main_prompt_url, data={"user_prompt": user_prompt})
+
+    # Convert Markdown to HTML
+    response_html = markdown.markdown(response)
+
     if response.status_code == 200:
-        return jsonify(response.json())
+        return jsonify(response_html)
     return jsonify({'Answer': 'An error occured while generating the response.'})
 
 
