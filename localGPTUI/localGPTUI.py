@@ -72,10 +72,10 @@ def generate_response():
     response = requests.post(main_prompt_url, data={"user_prompt": user_prompt})
 
     # Convert Markdown to HTML
-    response_html = markdown.markdown(response)
+    response_html = markdown.markdown(response, extensions=['extra'])
 
     if response.status_code == 200:
-        return jsonify(response_html)
+        return jsonify(response_html.json())
     return jsonify({'Answer': 'An error occured while generating the response.'})
 
 
