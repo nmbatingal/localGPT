@@ -4,6 +4,7 @@ import tempfile
 import requests
 import time
 import argparse
+import markdown
 
 from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
@@ -53,6 +54,9 @@ def home_page():
             response_dict['Answer'] = f'{len(files)} document uploaded with action: {request.form.get("action")}'
             print(response.status_code)  # print HTTP response status code for debugging
 
+    # Convert Mardown to HTML
+    response_dict['Answer'] = markdown.markdown(response_dict['Answer'], extensions=['extra'])
+
     # Display the form for GET request
     return render_template(
         "home.html",
@@ -66,8 +70,12 @@ def generate_response():
     user_prompt = request.form['user_prompt']
     main_prompt_url = f"{API_HOST}/prompt_route"
     response = requests.post(main_prompt_url, data={"user_prompt": user_prompt})
+
+    # Convert Markdown to HTML
+    response_html = markdown.markdown(response, extensions=['extra'])
+
     if response.status_code == 200:
-        return jsonify(response.json())
+        return jsonify(response_html.json())
     return jsonify({'Answer': 'An error occured while generating the response.'})
 
 
