@@ -23,40 +23,35 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-3 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <i class="fas fa-home"></i>
-                  Home
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="fas fa-upload"></i>
-                  Upload
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <i class="fas fa-cog"></i>
-                  Settings
-                </a>
-              </li>
-            </ul>
+        <div class="col-md-3 sidebar">
+          <div class="sidebar-header">
+            <h3>ChatBot</h3>
           </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Upload</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Settings</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-9 main-content">
+          <div class="header">
+            <h1>Welcome to ChatBot</h1>
           </div>
           <div class="content">
+            <div class="chat-container">
+              <ul id="chatList" class="chat-list"></ul>
+            </div>
             <div class="search-bar">
-              <form id="promptForm" action="{{ url_for('home_page') }}" method="POST">
+              <form id="promptForm" onsubmit="submitPromptForm(event)">
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" name="user_prompt" id="searchInput" placeholder="Ask a question...">
-                  <button class="btn btn-primary" type="button" onclick="submitPromptForm()">Search</button>
+                  <button class="btn btn-primary" type="submit">Send</button>
                 </div>
               </form>
               <form id="uploadForm" action="{{ url_for('home_page') }}" method="POST" enctype="multipart/form-data">
@@ -69,7 +64,7 @@
               <p>{{response_dict['Answer']}}</p>
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </div>
 
@@ -110,5 +105,47 @@
         </div>
       </div>
     </div>
+
+    <script>
+      async function submitPromptForm(event) {
+        event.preventDefault();
+        const userPrompt = document.getElementById("searchInput").value;
+        if (!userPrompt) return;
+
+        const chatList = document.getElementById("chatList");
+        const userMessage = document.createElement("li");
+        userMessage.className = "user-message";
+        userMessage.innerText = userPrompt;
+        chatList.appendChild(userMessage);
+
+        const responseMessage = document.createElement("li");
+        responseMessage.className = "response-message";
+        responseMessage.innerText = "Generating response...";
+        chatList.appendChild(responseMessage);
+
+        const formData = new FormData(document.getElementById("promptForm"));
+        
+        try {
+          const response = await fetch('/generate_response', {
+            method: 'POST',
+            body: formData
+          });
+          const data = await response.json();
+          responseMessage.innerText = data.Answer;
+        } catch (error) {
+          responseMessage.innerText = "An error occurred while generating the response.";
+          console.error('Error:', error);
+        }
+
+        document.getElementById("searchInput").value = "";
+      }
+
+      document.getElementById("searchInput").addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          submitPromptForm(event);
+        }
+      });
+    </script>
   </body>
 </html>
