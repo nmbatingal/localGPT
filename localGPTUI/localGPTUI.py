@@ -73,7 +73,7 @@ def generate_response():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--port", type=int, default=8080, help="Port to run the UI on. Defaults to 8080.")
+    parser.add_argument("--port", type=int, default=8181, help="Port to run the UI on. Defaults to 8181.")
     parser.add_argument(
         "--host",
         type=str,
