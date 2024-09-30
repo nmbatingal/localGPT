@@ -1,85 +1,22 @@
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --background-color: #f8f9fa;
-  --text-color: #343a40;
-  --accent-color: #28a745;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  color: var(--text-color);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', sans-serif;
-}
-
-.sidebar {
-  background-color: var(--background-color);
-  height: 100vh;
-  padding-top: 20px;
-}
-
-.sidebar .nav-link {
-  color: var(--text-color);
-}
-
-.sidebar .nav-link.active {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.main-content {
-  padding: 20px;
-}
-
-.header {
-  margin-bottom: 20px;
-}
-
-.search-bar {
-  margin-bottom: 20px;
-}
-
-.chat-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 400px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-.chat-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.chat-list li {
-  margin-bottom: 10px;
+.user-message, .response-message {
   padding: 10px;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 
 .user-message {
-  background-color: var(--primary-color);
-  color: white;
-  text-align: right;
-}
-
-.response-message {
-  background-color: var(--secondary-color);
-  color: white;
+  background-color: #e9ecef;
   text-align: left;
 }
 
-.btn-primary:hover {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
+.response-message {
+  background-color: #f8f9fa;
+  text-align: left;
 }
 
-.card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.timestamp {
+  display: block;
+  font-size: 0.8em;
+  color: #6c757d;
+  margin-top: 5px;
 }
