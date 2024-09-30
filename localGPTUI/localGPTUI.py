@@ -4,6 +4,7 @@ import tempfile
 import requests
 import time
 import argparse
+import markdown
 
 from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
@@ -52,6 +53,9 @@ def home_page():
             response = requests.get(run_ingest_url)
             response_dict['Answer'] = f'{len(files)} document uploaded with action: {request.form.get("action")}'
             print(response.status_code)  # print HTTP response status code for debugging
+
+    # Convert Mardown to HTML
+    response_dict['Answer'] = markdown.markdown(response_dict['Answer'])
 
     # Display the form for GET request
     return render_template(

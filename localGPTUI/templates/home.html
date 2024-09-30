@@ -131,7 +131,7 @@
             body: formData
           });
           const data = await response.json();
-          responseMessage.innerText = data.Answer;
+          responseMessage.innerHTML = data.Answer; // Use innerHTML to render HTML content
         } catch (error) {
           responseMessage.innerText = "An error occurred while generating the response.";
           console.error('Error:', error);
